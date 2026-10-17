@@ -1,0 +1,31 @@
+{
+  "name": "data-report",
+  "description": "Local-first CSV/XLSX analysis report MCP server (stats + Excel charts + Markdown), no upload.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/diyaluo/data-report-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registry_type": "oci",
+      "registry": "ghcr.io",
+      "namespace": "diyalu0",
+      "name": "data-report-mcp",
+      "reference": "v0.1.0"
+    }
+  ],
+  "remotes": [
+    {
+      "type": "stdio"
+    }
+  ],
+  "tools": [
+    {
+      "name": "analyze_table"
+    },
+    {
+      "name": "health"
+    }
+  ]
+}

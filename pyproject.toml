@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "data-report-mcp"
+version = "0.1.0"
+description = "Local-first MCP server: CSV/XLSX -> statistics + native Excel charts + Markdown insights, no upload."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "diyaluo" }]
+keywords = ["mcp", "data-analysis", "csv", "xlsx", "spreadsheet", "model-context-protocol"]
+dependencies = [
+  "mcp>=1.0",
+  "openpyxl>=3.1",
+]
+
+[project.scripts]
+data-report-mcp = "data_report_mcp.server:main"
+
+[project.urls]
+Homepage = "https://github.com/diyaluo/data-report-mcp"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/data_report_mcp"]

@@ -1,0 +1,10 @@
+# Smithery MCPB bundle is built manually with @anthropic-ai/mcpb (see PUBLISH.md).
+# stdio server only; no credentials required.
+start:
+  configSchema:
+    type: object
+    properties: {}
+  command:
+    - python
+    - "-m"
+    - data_report_mcp.server
