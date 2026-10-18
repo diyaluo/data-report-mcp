@@ -6,4 +6,10 @@ RUN pip install --no-cache-dir mcp openpyxl \
  && pip install --no-cache-dir --no-deps -e .
 # stdio by default; http transport set REMOTE_TRANSPORT=http + MCP_PORT
 ENV REMOTE_TRANSPORT=stdio
+
+# OCI labels required by the official MCP Registry validator
+LABEL io.modelcontextprotocol.server.name="io.github.diyaluo/data-report-mcp" \
+      io.modelcontextprotocol.mcp.version="0.1.0" \
+      org.opencontainers.image.title="data-report-mcp"
+
 ENTRYPOINT ["python", "-m", "data_report_mcp.server"]
