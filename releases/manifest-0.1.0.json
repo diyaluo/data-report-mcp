@@ -1,0 +1,44 @@
+{
+  "manifest_version": "0.4",
+  "name": "data-report-mcp",
+  "display_name": "Data Report MCP",
+  "version": "0.1.0",
+  "description": "Local-first CSV/XLSX analysis: stats, Excel charts, and Markdown reports. No upload.",
+  "long_description": "Analyze CSV/XLSX tables locally: descriptive statistics, distributions, correlation, Excel charts, and Markdown reports. Data never leaves the machine; built on stdlib + openpyxl.",
+  "author": {
+    "name": "diyaluo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diyaluo/data-report-mcp"
+  },
+  "homepage": "https://github.com/diyaluo/data-report-mcp",
+  "license": "MIT",
+  "keywords": [
+    "csv",
+    "xlsx",
+    "analytics",
+    "reports",
+    "charts",
+    "statistics",
+    "local-first"
+  ],
+  "server": {
+    "type": "python",
+    "entry_point": "server/server.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "${__dirname}/server/server.py"
+      ],
+      "env": {}
+    }
+  },
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "linux",
+      "win32"
+    ]
+  }
+}
