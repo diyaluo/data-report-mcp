@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>data-report-mcp — Local CSV/Excel Analysis Report MCP Server with Native Charts</title>
+  <meta name="description" content="Open-source Model Context Protocol server that turns a CSV or XLSX table into a full data analysis report: summary statistics, missing and duplicate diagnostics, category frequencies, correlations, a Chinese Markdown insights writeup and an Excel workbook with native interactive charts. Fully local, no pandas, no upload.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://diyaluo.github.io/data-report-mcp/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="data-report-mcp — CSV/Excel to Analysis Report MCP Server">
+  <meta property="og:description" content="Let any MCP-compatible AI agent generate statistics, diagnostics and charted Excel reports from a spreadsheet locally. No pandas, no upload.">
+  <meta property="og:url" content="https://diyaluo.github.io/data-report-mcp/">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "data-report-mcp",
+      "url": "https://diyaluo.github.io/data-report-mcp/",
+      "downloadUrl": "https://github.com/diyaluo/data-report-mcp",
+      "softwareHelp": "https://github.com/diyaluo/data-report-mcp",
+      "description": "Open-source Model Context Protocol server that turns a CSV or XLSX table into a full data analysis report: summary statistics, missing and duplicate diagnostics, category frequencies, correlations, a Chinese Markdown insights writeup and an Excel workbook with native interactive charts. Fully local, no pandas, no upload.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "license": "https://github.com/diyaluo/data-report-mcp/blob/master/LICENSE",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "MCP server for CSV/XLSX analysis reports",
+        "Summary statistics, missing and duplicate diagnostics",
+        "Category frequencies and pairwise correlations",
+        "Excel workbook with native interactive charts",
+        "No pandas — standard library plus openpyxl only",
+        "Runs locally, no upload, no API key",
+        "Works with Claude Desktop, Cursor and any MCP client"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Open Source MCP Tools",
+          "item": "https://diyaluo.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "data-report-mcp",
+          "item": "https://diyaluo.github.io/data-report-mcp/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does this MCP server do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It exposes spreadsheet analysis as an MCP tool, so an MCP-compatible AI agent can take a CSV or XLSX file and return a structured report with summary statistics, data-quality diagnostics, category frequencies, correlations and an optional Excel workbook containing native charts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it upload my spreadsheets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The server runs locally over stdio and makes no network calls. Business and financial spreadsheets stay on the machine, which is why teams handling confidential data use it instead of online analysis tools."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to install pandas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is built on the Python standard library plus openpyxl for Excel output, deliberately avoiding a heavy pandas dependency so it installs quickly and works in constrained environments."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which MCP clients are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Any client supporting the Model Context Protocol over stdio, including Claude Desktop and Cursor. It is published to the official MCP Registry as io.github.diyaluo/data-report-mcp and distributed as an OCI image on GHCR."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the generated report a final conclusion?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The Markdown insights and statistics are an analysis starting point. Correlation is not causation; the output is designed to feed human business judgment rather than replace it."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <style>
+    :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --accent:#2563eb; --bg:#f8fafc; --card:#fff; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--ink); background:var(--bg); line-height:1.65; }
+    .wrap { max-width:880px; margin:0 auto; padding:0 24px; }
+    header.hero { background:linear-gradient(135deg,#0f172a,#1e3a8a); color:#fff; padding:72px 0 64px; }
+    .badge { display:inline-block; font-size:.8rem; font-weight:600; letter-spacing:.04em; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); padding:5px 12px; border-radius:999px; margin-bottom:20px; }
+    h1 { font-size:2.3rem; line-height:1.2; margin:0 0 16px; }
+    .lead { font-size:1.15rem; color:#cbd5e1; max-width:680px; margin:0 0 28px; }
+    .cta-row { display:flex; gap:14px; flex-wrap:wrap; }
+    .btn { display:inline-block; padding:12px 22px; border-radius:10px; font-weight:600; text-decoration:none; font-size:.95rem; }
+    .btn-primary { background:var(--accent); color:#fff; }
+    .btn-primary:hover { filter:brightness(1.08); }
+    .btn-ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.4); }
+    main { padding:56px 0 24px; }
+    section { margin-bottom:48px; }
+    h2 { font-size:1.5rem; margin:0 0 18px; }
+    h3 { font-size:1.1rem; margin:24px 0 8px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; }
+    .card h3 { margin-top:0; }
+    .card p { color:var(--muted); font-size:.95rem; margin:6px 0 0; }
+    pre { background:#0f172a; color:#e2e8f0; padding:18px; border-radius:12px; overflow-x:auto; font-size:.88rem; line-height:1.55; }
+    code { font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace; }
+    p code, li code { background:#eef2ff; color:#3730a3; padding:2px 6px; border-radius:6px; font-size:.88em; }
+    ul.clean { list-style:none; padding:0; margin:0; }
+    ul.clean li { padding:8px 0 8px 28px; position:relative; border-bottom:1px solid var(--line); }
+    ul.clean li:last-child { border-bottom:0; }
+    ul.clean li::before { content:"\2713"; position:absolute; left:0; color:#16a34a; font-weight:700; }
+    .faq details { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+    .faq summary { font-weight:600; cursor:pointer; }
+    .faq p { color:var(--muted); margin:10px 0 0; font-size:.95rem; }
+    .meta { color:var(--muted); font-size:.9rem; }
+    a { color:var(--accent); }
+    footer { border-top:1px solid var(--line); padding:32px 0 48px; color:var(--muted); font-size:.9rem; }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <span class="badge">Open Source &middot; Model Context Protocol &middot; MIT</span>
+      <h1>Turn a spreadsheet into a full analysis report from inside any AI agent, fully on your machine</h1>
+      <p class="lead">data-report-mcp is a local MCP server that reads a CSV or XLSX table and returns summary statistics, data-quality diagnostics, correlations and an Excel workbook with native charts — no pandas dependency, no API key, nothing uploaded.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/diyaluo/data-report-mcp">View on GitHub</a>
+        <a class="btn btn-ghost" href="#install">Install guide</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>Why an MCP server for this</h2>
+      <p class="meta">Asking an LLM to &#x27;analyze this spreadsheet&#x27; usually yields prose that hides missing values and invents statistics. This server gives the agent a deterministic local tool: real computations over the rows and a charted workbook the analyst can open and verify, while confidential business and financial spreadsheets never leave the machine.</p>
+      <div class="grid" style="margin-top:20px">
+<div class="card"><h3>Business reporting</h3><p>Generate a first-cut analysis report from operational or sales spreadsheets in one call, then refine the narrative in the agent.</p></div>
+<div class="card"><h3>Data quality checks</h3><p>Surface duplicate rows, columns missing over 20% of values and numeric outliers before a model or dashboard touches the data.</p></div>
+<div class="card"><h3>Finance and FP&amp;A</h3><p>Compute totals, distributions and significant correlations on budget and ledger files locally, with no third-party data processing.</p></div>
+<div class="card"><h3>AI agents and RAG</h3><p>Give Claude Desktop, Cursor or any MCP client a callable tool that returns structured statistics and an XLSX instead of hallucinated figures.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What it does</h2>
+      <ul class="clean">
+<li><strong>analyze_table</strong> — turn a CSV/XLSX into summary stats, duplicate/missing diagnostics, top-5 category frequencies and pairwise correlations (Pearson |r| &ge; 0.5).</li>
+<li>Numeric columns report min, max, mean, median, sum, standard deviation and missing rate; categorical columns report unique count and top frequencies.</li>
+<li>Optional Excel workbook with sheets for overview, numeric stats, detail, per-column distribution charts (native bar charts) and significant correlations.</li>
+<li>Chinese Markdown insights writeup included as a starting point — explicitly framed as analysis input, not conclusion, so business judgment stays with the user.</li>
+<li>Runs on the Python standard library plus openpyxl — <strong>no pandas</strong>, so it installs lightly and bundles into small environments.</li>
+<li><strong>health</strong> — service status check. 100% local, no network, optional local-only usage counter.</li>
+      </ul>
+    </section>
+
+    <section id="install">
+      <h2>Install and connect</h2>
+      <p>Published to the official MCP Registry as <code>io.github.diyaluo/data-report-mcp</code> and as an OCI image on GHCR. Run locally over stdio:</p>
+      <pre><code>pip install -e .
+data-report-mcp</code></pre>
+      <p>Client configuration (Claude Desktop / Cursor / any MCP client):</p>
+      <pre><code>{
+  "mcpServers": {
+    "data-report": {
+      "command": "data-report-mcp",
+      "env": {}
+    }
+  }
+}</code></pre>
+      <p class="meta">No API key, no network access and no subscription. A local usage counter under ~/.cache/data-report-mcp is the only telemetry, and it never uploads.</p>
+    </section>
+
+    <section class="faq">
+      <h2>Frequently asked questions</h2>
+<details open><summary>What does this MCP server do?</summary><p>It exposes spreadsheet analysis as an MCP tool, so an MCP-compatible AI agent can take a CSV or XLSX file and return a structured report with summary statistics, data-quality diagnostics, category frequencies, correlations and an optional Excel workbook containing native charts.</p></details>
+<details><summary>Does it upload my spreadsheets?</summary><p>No. The server runs locally over stdio and makes no network calls. Business and financial spreadsheets stay on the machine, which is why teams handling confidential data use it instead of online analysis tools.</p></details>
+<details><summary>Do I need to install pandas?</summary><p>No. It is built on the Python standard library plus openpyxl for Excel output, deliberately avoiding a heavy pandas dependency so it installs quickly and works in constrained environments.</p></details>
+<details><summary>Which MCP clients are supported?</summary><p>Any client supporting the Model Context Protocol over stdio, including Claude Desktop and Cursor. It is published to the official MCP Registry as io.github.diyaluo/data-report-mcp and distributed as an OCI image on GHCR.</p></details>
+<details><summary>Is the generated report a final conclusion?</summary><p>No. The Markdown insights and statistics are an analysis starting point. Correlation is not causation; the output is designed to feed human business judgment rather than replace it.</p></details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>data-report-mcp &middot; MIT License &middot; <a href="https://github.com/diyaluo/data-report-mcp">GitHub repository</a> &middot; <a href="https://github.com/diyaluo/data-report-mcp/blob/master/LICENSE">license</a></p>
+      <p>Part of the diyaluo local-first developer tools collection. Distributed through the official MCP Registry and GHCR.</p>
+    </div>
+  </footer>
+</body>
+</html>

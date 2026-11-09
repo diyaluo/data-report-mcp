@@ -1,5 +1,8 @@
 # data-report-mcp
 
+> 📄 **Project landing page (use cases and install guide): https://diyaluo.github.io/data-report-mcp/**
+
+
 A local-first **Model Context Protocol (MCP)** server that turns a CSV/XLSX
 table into a real data analysis report — summary statistics, duplicate /
 missing diagnostics, top category frequencies, pairwise correlations, a
